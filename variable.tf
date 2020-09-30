@@ -43,12 +43,12 @@ variable "ca_crt" {
 
 variable "helm_secret_username" {
   default = ""
-  #takes the username and converts it into base64
+  #provide the helm repo username and it will create a secret(imagePullSecret)
 }
 
 variable "helm_secret_password" {
   default = ""
-  #takes the password and converts it into base64
+  #provide the helm repo password as helm passoword and it will create a secret(imagePullSecret)
 }
 
 variable "helm_image_pull_secret_name" {
