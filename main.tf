@@ -1,3 +1,4 @@
+#RKE
 provider "rke" {
 
 }
@@ -6,7 +7,7 @@ resource "rke_cluster" "rkecluster" {
     address = "10.0.3.237"
     user    = "ubuntu"
     role    = ["controlplane", "worker", "etcd"]
-    ssh_key = file(var.ssh_path)
+    ssh_key = file(var.ssh_private_key)
   }
   upgrade_strategy {
       drain = true
@@ -20,6 +21,14 @@ resource "rke_cluster" "rkecluster" {
     }
 
 }
+
+#
+#
+#
+#
+#
+#
+#Kubernetes  namespace and secrets
 provider "kubernetes" {
   load_config_file = "false"
 
@@ -57,11 +66,32 @@ resource "kubernetes_secret" "tls-ca-secret" {
               }
 
               data = {
-                "cacerts.pem" = file(var.ca_key)
+                "cacerts.pem" = file(var.ca_crt)
+            }
+          }
+resource "kubernetes_secret" "helm_image_pull_secret" {
+
+              metadata {
+                    name      = var.helm_image_pull_secret_name
+                        }
+                  type = "Opeque"
+                  data = {
+                      "username" = var.helm_secret_username
+                      "password" = var.helm_secret_password
             }
           }
 
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#Rancher installation on RKE
 
 
 provider "helm" {
@@ -83,12 +113,12 @@ resource "helm_release" "rancher_server" {
 
             set {
               name  = "hostname"
-              value = var.rancher_server_dns
+              value = var.rancher_fqdn
             }
 
             set {
               name = "imagePullSecrets[0].name"
-              value = var.image_pull_secret
+              value = var.helm_image_pull_secret_name
             }
 
             set {
