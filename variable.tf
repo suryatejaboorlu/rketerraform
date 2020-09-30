@@ -62,7 +62,7 @@ variable "helm_repository_url" {
 }
 
 variable "system_default_registry" {
-  default = ""
+  default = "10.0.3.222:8082/docker"
 }
 
 variable "rancher_image" {
