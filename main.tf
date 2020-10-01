@@ -30,7 +30,18 @@ resource "rke_cluster" "rkecluster" {
 #
 #
 #
+#Kubernetes config file 
+
+resource "local_file" "kubeconfig-yaml" {
+  filename = "config.yaml"
+  content = rke_cluster.rkecluster.kube_config_yaml
+}
 #Kubernetes  namespace and secrets
+#
+#
+#
+#
+#
 provider "kubernetes" {
   load_config_file = "false"
 
