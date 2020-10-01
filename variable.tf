@@ -3,6 +3,11 @@ variable "rancher_version" {
   # Taken by helm_chart to specify which rancher version to install
 }
 
+variable "rke_user" {
+  default = "ubuntu"
+  # the user created in all the nodes in rke cluster
+}
+
 variable "airgapped_nodes" {
   default = ["ip-1","ip-2","ip=3"]
 }

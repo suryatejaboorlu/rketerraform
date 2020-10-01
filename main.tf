@@ -1,7 +1,6 @@
 #RKE
-provider "rke" {
+provider "rke" {}
 
-}
 resource "rke_cluster" "rkecluster" {
   dynamic nodes {
     for_each = var.airgapped_nodes
