@@ -24,7 +24,7 @@ variable "ssh_private_key" {
 
 variable "private_registry_url" {
   default = ""
-  #URL of private registry where it will pull the RKE related  docker images from, example="10.0.1.0:8888/docker"
+  #URL of private registry where it will pull the RKE related  docker images from, example="10.0.1.0:8082/docker"
 }
 
 variable "private_registry_username" {
@@ -73,7 +73,7 @@ variable "helm_repository_url" {
 
 variable "system_default_registry" {
   default = "10.0.3.222:8082/docker"
-  # Mention the default registry if you have multiple private docker registries..
+  # Mention the default registry where images must be pulled from
 }
 
 variable "rancher_image" {
