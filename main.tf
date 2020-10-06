@@ -21,6 +21,26 @@ resource "rke_cluster" "rkecluster" {
       password = var.private_registry_password
       is_default = true
     }
+  services { 
+    kube_api {
+      # IP range for any services created on Kubernetes
+      # This must match the service_cluster_ip_range in kube-controller
+      service_cluster_ip_range = ""
+      # Expose a different port range for NodePort services
+      service_node_port_range = ""
+     }
+    kube_controller {
+       # CIDR pool used to assign IP addresses to pods in the cluster
+       cluster_cidr = ""
+       # IP range for any services created on Kubernetes
+       # This must match the service_cluster_ip_range in kube-api
+       service_cluster_ip_range = ""
+       }
+    kubelet {
+      # IP address for the DNS service endpoint
+      cluster_dns_server = ""
+      }
+    }
 
 }
 
